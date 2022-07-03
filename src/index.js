@@ -6,11 +6,22 @@ import Register from './components/Register';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Login from './components/Login'
+import Newpost from './components/Newpost';
+
 // import LoginForm from './components/LoginForm';
 
 
 const App = () =>
 {
+    const labels = document.querySelectorAll('.form-control label')
+
+labels.forEach(label => {
+    label.innerHTML = label.innerText
+        .split('')
+        .map((letter, idx) => `<span style="transition-delay:${idx * 50}ms">${letter}</span>`)
+        .join('')
+})
+
     const [posts,setPosts]=useState([]);
     useEffect(()=>
     {
@@ -21,13 +32,17 @@ const App = () =>
         });
     },[])
     return (
-        <div>
+        <div id='PageGrandParent'>
+        <h1 id='mainTitle'>Stranger's Things</h1>
+        <div id='page'>
         <Navbar/>
        <Routes>
             <Route exact path = "/Posts" element={ <Posts posts={posts} setPosts={setPosts}/> }></Route>
             <Route exact path = "/Register" element={ <Register/> }></Route>
             <Route exact path = "/Login" element={ <Login/> }></Route>
+            <Route exact path = "/Newpost" element={ <Newpost/> }></Route>
        </Routes>
+        </div>
     </div>
 )}
 
